@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Bio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+</head>
+<body class="bg-black text-gray-200 font-mono flex items-center justify-center min-h-screen p-5">
+    <div class="w-full max-w-4xl p-8 border-2 border-white rounded-lg bg-black shadow-lg relative">
+        <!-- Language Selector for Mobile -->
+        <div id="language-selector-mobile" class="absolute top-0 left-1/2 transform -translate-x-1/2 flex space-x-3 md:hidden">
+            <button class="p-2 rounded-full border border-white hover:bg-gray-900 transform transition-all hover:scale-125" onclick="changeLanguage('en')">
+                <img src="/images/flag_usa.png" alt="English" class="w-8 h-8">
+            </button>
+            <button class="p-2 rounded-full border border-white hover:bg-gray-900 transform transition-all hover:scale-125" onclick="changeLanguage('ru')">
+                <img src="/images/flag_russia.png" alt="Russian" class="w-8 h-8">
+            </button>
+            <button class="p-2 rounded-full border border-white hover:bg-gray-900 transform transition-all hover:scale-125" onclick="changeLanguage('cs')">
+                <img src="/images/flag_cz.png" alt="Czech" class="w-8 h-8">
+            </button>
+        </div>
+
+        <h1 class="text-center bg-clip-text text-transparent bg-gradient-to-r from-red-500 text-3xl mb-6">exider's Bio</h1>
+
+        <!-- Language Selector for Desktop -->
+        <div id="language-selector-desktop" class="absolute top-5 right-5 flex space-x-3 md:space-x-4 lg:space-x-5 hidden md:flex">
+            <button class="p-2 rounded-full border border-white hover:bg-gray-900 transform transition-all hover:scale-125" onclick="changeLanguage('en')">
+                <img src="/images/flag_usa.png" alt="English" class="w-6 h-6">
+            </button>
+            <button class="p-2 rounded-full border border-white hover:bg-gray-900 transform transition-all hover:scale-125" onclick="changeLanguage('ru')">
+                <img src="/images/flag_russia.png" alt="Russian" class="w-6 h-6">
+            </button>
+            <button class="p-2 rounded-full border border-white hover:bg-gray-900 transform transition-all hover:scale-125" onclick="changeLanguage('cs')">
+                <img src="/images/flag_cz.png" alt="Czech" class="w-6 h-6">
+            </button>
+        </div>
+
+        <div class="mb-6 p-3 border border-white rounded-lg bg-black ease-in-out duration-200 hover:bg-gray-900">
+            <h2 class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 text-xl mb-3" id="about-title">About Me</h2>
+            <p class="mb-1" id="name">👤 Name:</p>
+            <p class="mb-1" id="age">🎂 Age: </p>
+            <p class="mb-1" id="profession">🛠️ Profession: </p>
+            <p id="languages">🌍 Languages:</p>
+        </div>
+
+        <div class="mb-6 p-3 border border-white rounded-lg bg-black ease-in-out duration-200 hover:bg-gray-900">
+            <h2 class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 text-xl mb-3" id="hobbies-title">Hobbies</h2>
+            <ul class="list-disc pl-5">
+                <li id="hobby-1">Backend development</li>
+                <li id="hobby-2">Sleeping</li>
+                <li id="hobby-3">Crypto? =D</li>
+            </ul>
+        </div>
+
+        <div class="mb-6 p-3 border border-white rounded-lg bg-black ease-in-out duration-200 hover:bg-gray-900 hover:scale-105">
+            <h2 class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 text-xl mb-3" id="socials-title">Socials</h2>
+            <p>
+                <a href="https://t.me/" target="_blank" class="italic hover:text-white/50 ease-in-out duration-200" id="telegram">Telegram (feel free to contact me!)</a>
+            </p>
+            <p>
+                <a href="https://github.com/ex1d3r" target="_blank" class="italic hover:text-white/50 ease-in-out duration-200" id="github">GitHub</a>
+            </p>
+            <p>
+                <a href="https://steamcommunity.com/id/" target="_blank" class="italic hover:text-white/50 ease-in-out duration-200" id="steam">Steam</a>
+            </p>
+        </div>
+
+        <!-- Services -->
+        <div class="mt-6 p-3 border border-white rounded-lg bg-black ease-in-out duration-200 hover:bg-gray-900 hover:scale-105">
+            <h2 class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 text-xl mb-3" id="services-title">Services</h2>
+            <p>
+                <a href="" target="_blank" class="italic hover:text-white/50 ease-in-out duration-200" id="mail-service">Mail service</a>
+            </p>
+        </div>
+
+        <!-- Link to Portfolio -->
+        <div class="mt-6 p-3 border border-white rounded-lg bg-black ease-in-out duration-200 hover:bg-gray-900 hover:scale-105">
+            <h2 class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 text-xl mb-3" id="portfolio-title">Portfolio</h2>
+            <p>
+                <a href="portfolio.html" target="_blank" class="italic hover:text-white/50 ease-in-out duration-200" id="portfolio-link">Check out my projects</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Get the saved language from cookies, or default to English
+        const savedLang = Cookies.get('language') || 'en';
+        // Apply the saved language on page load
+        changeLanguage(savedLang);
+
+        function changeLanguage(lang) {
+            const translations = {
+                en: {
+                    aboutTitle: "About Me",
+                    hobbiesTitle: "Hobbies",
+                    socialsTitle: "Socials",
+                    servicesTitle: "Services",
+                    portfolioTitle: "Portfolio",
+                    name: "",
+                    age: "",
+                    profession: "Self-taught Backend Developer",
+                    languages: "",
+                    hobby_1: "",
+                    hobby_2: "",
+                    hobby_3: "? =D",
+                    telegram: "Telegram (feel free to contact me!)",
+                    github: "GitHub",
+                    steam: "Steam",
+                    mailService: "Mail service",
+                    portfolioLink: "Check out my projects"
+                },
+                ru: {
+                    aboutTitle: "Обо мне",
+                    hobbiesTitle: "Хобби",
+                    socialsTitle: "Социальные сети",
+                    servicesTitle: "Услуги",
+                    portfolioTitle: "Портфолио",
+                    name: "",
+                    age: "",
+                    profession: "Самоучка, Backend-разработчик",
+                    languages: "",
+                    hobby_1: "Backend-разработка",
+                    hobby_2: "Сон",
+                    hobby_3: "Крипта? =D",
+                    telegram: "Telegram (напиши мне!)",
+                    github: "GitHub",
+                    steam: "Steam",
+                    mailService: "Почтовая служба",
+                    portfolioLink: "Посмотри мои проекты"
+                },
+                cs: {
+                    aboutTitle: "O mně",
+                    hobbiesTitle: "Zájmy",
+                    socialsTitle: "Sociální sítě",
+                    servicesTitle: "Služby",
+                    portfolioTitle: "Portfolio",
+                    name: "Daniel",
+                    age: "18",
+                    profession: "",
+                    languages: "",
+                    hobby_1: "Backend vývoj",
+                    hobby_2: "Spánek",
+                    hobby_3: "Krypto? =D",
+                    telegram: "Telegram (kontaktujte mě!)",
+                    github: "GitHub",
+                    steam: "Steam",
+                    mailService: "Mailová služba",
+                    portfolioLink: "Podívejte se na moje projekty"
+                }
+            };
+
+            // Update the content based on the selected language
+            document.getElementById('about-title').innerText = translations[lang].aboutTitle;
+            document.getElementById('hobbies-title').innerText = translations[lang].hobbiesTitle;
+            document.getElementById('socials-title').innerText = translations[lang].socialsTitle;
+            document.getElementById('services-title').innerText = translations[lang].servicesTitle;
+            document.getElementById('portfolio-title').innerText = translations[lang].portfolioTitle;
+
+            document.getElementById('name').innerText = `👤 Name: ${translations[lang].name}`;
+            document.getElementById('age').innerText = `🎂 Age: ${translations[lang].age}`;
+            document.getElementById('profession').innerText = `🛠️ Profession: ${translations[lang].profession}`;
+            document.getElementById('languages').innerText = `🌍 Languages: ${translations[lang].languages}`;
+
+            document.getElementById('hobby-1').innerText = translations[lang].hobby_1;
+            document.getElementById('hobby-2').innerText = translations[lang].hobby_2;
+            document.getElementById('hobby-3').innerText = translations[lang].hobby_3;
+
+            document.getElementById('telegram').innerText = translations[lang].telegram;
+            document.getElementById('github').innerText = translations[lang].github;
+            document.getElementById('steam').innerText = translations[lang].steam;
+
+            document.getElementById('mail-service').innerText = translations[lang].mailService;
+            document.getElementById('portfolio-link').innerText = translations[lang].portfolioLink;
+
+            // Save the selected language in cookies for future visits
+            Cookies.set('language', lang, { expires: 365 });
+        }
+    </script>
+</body>
+</html>
